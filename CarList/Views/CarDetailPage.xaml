@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarList.Views.CarDetailPage"
+             Shell.BackgroundColor="{DynamicResource Gray950}"
+             xmlns:viewModel="clr-namespace:CarList.ViewModel"
+             x:DataType="viewModel:CarDetailViewModal"
+             xmlns:local="clr-namespace:CarList.Models"
+             Title="{Binding CarDetails.modelName}">
+
+
+    <ScrollView Margin="5"
+                x:Name="DetailScroll"
+                BackgroundColor="{DynamicResource Gray950}">
+
+        <!--changd to your dataList-->
+
+        <Grid RowDefinitions="Auto,Auto,*"
+              ColumnDefinitions=".50*,0.50*"
+              Padding="10"
+              RowSpacing="5"
+              MinimumHeightRequest="500"
+              ColumnSpacing="8">
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.Row="0"
+                    StrokeThickness="0"
+                    BackgroundColor="{DynamicResource Gray900}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,10,10,10" />
+                </Border.StrokeShape>
+                <CarouselView ItemsSource="{Binding CarDetails.Photos}"
+                              HeightRequest="200"
+                              x:Name="DetailImages">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}"
+                                   Aspect="AspectFit"
+                                   Margin="10"
+                                   MaximumHeightRequest="200"
+                                   BackgroundColor="{DynamicResource Gray900}" />
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+
+
+            </Border>
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.Row="1"
+                    Grid.RowSpan="1"
+                    StrokeThickness="0"
+                    Padding="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,10,10,10" />
+                </Border.StrokeShape>
+                <Grid BackgroundColor="{StaticResource Gray900}"
+                      ColumnDefinitions="0.5*,0.5*"
+                      RowDefinitions="Auto,Auto"
+                      RowSpacing="5"
+                      Padding="10">
+                    <Label Text="{Binding CarDetails.title, FallbackValue=...}"
+                           FontAttributes="Bold"
+                           Grid.ColumnSpan="2"
+                           Grid.RowSpan="1"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Start"
+                           MaxLines="2"
+                           TextColor="Azure"
+                           FontSize="Subtitle" />
+
+                    <Grid Grid.ColumnSpan="2"
+                          Grid.Row="1"
+                          RowDefinitions="0.1*,0.1*,0.6*,0.2*"
+                          Padding="10"
+                          Margin="0,5,0,0"
+                          ColumnDefinitions=".5*,.5*">
+
+                        <Label Text="{Binding CarDetails.modelName, FallbackValue=...}"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                               FontAttributes="Bold"
+                               Grid.ColumnSpan="2"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Start"
+                               TextColor="Beige"
+                               FontSize="Small" />
+                        <Label Text="{Binding CarDetails.category.name, FallbackValue=...}"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               Margin="0,2"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Start"
+                               TextColor="Beige"
+                               FontSize="12" />
+
+                        <Grid Grid.ColumnSpan="1"
+                              Grid.Column="0"
+                              Grid.Row="2"
+                              x:Name="detailGrid"
+                              ColumnDefinitions="0.3*,0.7*"
+                              Margin="0,15,0,0"
+                              RowSpacing="15"
+                              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                            <Label Text="City :"
+                                   FontAttributes="Bold"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.location.cityName, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+                            <Label Text="Town :"
+                                   FontAttributes="Bold"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.location.townName, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+
+
+                            <Label Text="Date :"
+                                   FontAttributes="Bold"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.dateFormatted, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="2"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+
+
+
+                            <Label Text="Name :"
+                                   FontAttributes="Bold"
+                                   Grid.Row="3"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.UserInfo.NameSurname, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="3"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+
+                            <Label Text="Phone:"
+                                   FontAttributes="Bold"
+                                   Grid.Row="4"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.UserInfo.PhoneFormatted, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="4"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+
+                        </Grid>
+                        <Grid Grid.ColumnSpan="1"
+                              Grid.Column="2"
+                              Grid.Row="2"
+                              ColumnDefinitions="0.3*,0.7*"
+                              Margin="0,15,0,0"
+                              RowSpacing="15"
+                              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                            <Label Text="{Binding CarDetails.properties[0].name,StringFormat='{0} :'}"
+                                   FontAttributes="Bold"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="{StaticResource Gray300}"
+                                   FontSize="Small" />
+                            <Label Text="{Binding CarDetails.properties[0].value, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+                            <Label  Text="{Binding CarDetails.properties[1].name,StringFormat='{0} :'}"
+                                    FontAttributes="Bold"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="{StaticResource Gray300}"
+                                    FontSize="Small" />
+                            <Label Text="{Binding CarDetails.properties[1].value, FallbackValue=...}"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Start"
+                                   TextColor="Beige"
+                                   FontSize="Small" />
+
+
+
+                            <Label  Text="{Binding CarDetails.properties[2].name,StringFormat='{0} :'}"
+                                    FontAttributes="Bold"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="{StaticResource Gray300}"
+                                    FontSize="Small" />
+                            <Label  Text="{Binding CarDetails.properties[2].value}"
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="Beige"
+                                    FontSize="Small" />
+
+
+
+                            <Label  Text="{Binding CarDetails.properties[3].name,StringFormat='{0} :'}"
+                                    FontAttributes="Bold"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="{StaticResource Gray300}"
+                                    FontSize="Small" />
+                            <Label  Text="{Binding CarDetails.properties[3].value}"
+                                    Grid.Column="1"
+                                    Grid.Row="3"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="Beige"
+                                    FontSize="Small" />
+
+
+
+                            <Label  Text="{Binding CarDetails.properties[4].name,StringFormat='{0} :'}"
+                                    FontAttributes="Bold"
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="{StaticResource Gray300}"
+                                    FontSize="Small" />
+                            <Label  Text="{Binding CarDetails.properties[4].value}"
+                                    Grid.Column="1"
+                                    Grid.Row="4"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Start"
+                                    VerticalTextAlignment="Start"
+                                    TextColor="Beige"
+                                    FontSize="Small" />
+
+                        </Grid>
+
+                        <Label Text="Price :"
+                               FontAttributes="Bold"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               HorizontalTextAlignment="End"
+                               VerticalTextAlignment="End"
+                               Padding="0,0,40,0"
+                               TextColor="{StaticResource Gray300}"
+                               FontSize="Title" />
+                        <Label Text="{Binding CarDetails.priceFormatted, FallbackValue=...}"
+                               Grid.Column="0"
+                               Grid.Row="3"
+                               Margin="150,0,0,0"
+                               Grid.ColumnSpan="2"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="End"
+                               TextColor="Beige"
+                               FontSize="Title" />
+
+
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.Row="2"
+                    Grid.RowSpan="2"
+                    StrokeThickness="0"
+                    BackgroundColor="{DynamicResource Gray880}"
+                    Padding="10,15,10,15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,10,10,10" />
+                </Border.StrokeShape>
+
+                <Label Text="{Binding CarDetails.Text}"
+                       TextType="Html"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       TextColor="Azure"
+                       FontSize="16" />
+            </Border>
+        </Grid>
+
+
+    </ScrollView>
+
+</ContentPage>

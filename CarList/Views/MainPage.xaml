@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarList.Views.MainPage"
+             Shell.NavBarIsVisible="True"
+             Shell.BackgroundColor="{StaticResource Gray950}"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:viewmodel="clr-namespace:CarList.ViewModel"
+             x:DataType="viewmodel:CarViewModal"
+             xmlns:local="clr-namespace:CarList.Models"
+             Title="Cars">
+
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource Gray950}" />
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView 
+        >
+        <Grid>
+            <Label Text="CARS"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   TextColor="white"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    
+    <ScrollView Margin="5"
+                BackgroundColor="{DynamicResource Gray950}">
+        <StackLayout>
+            <Grid ColumnDefinitions="0.5*,0.5*" ColumnSpacing="30" Margin="10,0,10,10">
+                
+            <Entry 
+                   Text="{Binding Count}"
+                TextColor="AliceBlue"
+                HorizontalTextAlignment="Center"
+                FontSize="20"
+               
+                BackgroundColor="{StaticResource Gray880}"
+                   Placeholder="EnteTask" />
+            <Button Text="Get"
+                    Command="{Binding GetCarsCommand}"
+
+                    Grid.Column="1" />
+            </Grid>
+
+            <Label Text="Loading..."
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   IsVisible="{Binding IsLoading}"
+                   TextColor="AntiqueWhite"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+            
+            <CollectionView x:Name="carsCollection" IsVisible="{Binding IsShowing}">
+            <!--changd to your dataList-->
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="local:Car">
+                    <Frame BackgroundColor="{StaticResource Gray900}"
+                           CornerRadius="10"
+                           Margin="5,5"
+                           Padding="5,5"
+                           BorderColor="{x:StaticResource Gray900}"
+                           HeightRequest="200">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                                   AncestorType={x:Type viewmodel:CarViewModal}},Path=TapCommand}"
+                                                  CommandParameter="{Binding id}" />
+                        </Frame.GestureRecognizers>
+                        <Grid RowDefinitions="0.3*, 0.6*,0.2*"
+                              ColumnDefinitions=".25*,0.375*,0.375*"
+                              Padding="10"
+                              RowSpacing="5"
+                              ColumnSpacing="8">
+
+                            <!--<Image Grid.RowSpan="2"
+                               x:Name="PlayerPic"
+                               Source="{Binding PlayerImage, Converter={StaticResource ByteArrayToImage}}"
+                               Aspect="AspectFill"
+                               HeightRequest="60"
+                               WidthRequest="60" />-->
+                            <Frame Grid.ColumnSpan="1"
+                                   Grid.RowSpan="3"
+                                   Grid.Row="0"
+                                   BackgroundColor="{DynamicResource Gray900}"
+                                   CornerRadius="10"
+                                   Padding="0">
+                                <Image Source="{Binding photo}"
+                                       MaximumHeightRequest="100"
+                                       Aspect="AspectFill"
+                                       BackgroundColor="{DynamicResource Gray900}" />
+                            </Frame>
+                            <Border Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="1"
+                                    StrokeThickness="0"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                </Border.StrokeShape>
+
+                                <Label Text="{Binding modelName}"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       TextColor="Azure"
+                                       FontSize="Subtitle"
+                                       BackgroundColor="{DynamicResource Gray880}" />
+                            </Border>
+                            <Border Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Grid.RowSpan="1"
+                                    StrokeThickness="0"
+                                    BackgroundColor="{DynamicResource Gray880}"
+                                    Padding="5,2">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                </Border.StrokeShape>
+
+                                <Label TextColor="{StaticResource Cyan300Accent}"
+                                       Text="{Binding title}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Italic"
+                                       VerticalOptions="FillAndExpand" />
+                            </Border>
+                            <Border Grid.Row="3"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="2"
+                                    StrokeThickness="0"
+                                    BackgroundColor="{DynamicResource Gray880}"
+                                    Padding="5,2">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                </Border.StrokeShape>
+
+                                <Label TextColor="Chartreuse"
+                                       Text="{Binding priceFormatted}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Italic"
+                                       VerticalOptions="FillAndExpand" />
+
+                            </Border>
+                            <Border Grid.Row="3"
+                                    Grid.Column="2"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="2"
+                                    StrokeThickness="0"
+                                    BackgroundColor="{DynamicResource Gray880}"
+                                    Padding="5,2">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                </Border.StrokeShape>
+
+                                <Label TextColor="{DynamicResource Cyan300Accent}"
+                                       Text="{Binding dateFormatted}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Italic"
+                                       VerticalOptions="FillAndExpand" />
+
+                            </Border>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+          
+        </StackLayout>
+
+    </ScrollView >
+
+</ContentPage>
